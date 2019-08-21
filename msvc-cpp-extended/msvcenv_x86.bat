@@ -1,5 +1,6 @@
 @echo off
 
+set CONAN_CMAKE_GENERATOR=NMake Makefiles
 set PROCESSOR_ARCHITECTURE=AMD64
 set INCLUDE=C:\Tools\VC\Tools\MSVC\14.22.27905\atlmfc\include;C:\Tools\VC\Tools\MSVC\14.22.27905\include;C:\Tools\SDK\10\include\10.0.18362.0\shared;C:\Tools\SDK\10\include\10.0.18362.0\um;C:\Tools\SDK\10\include\10.0.18362.0\ucrt;C:\Tools\SDK\10\include\10.0.18362.0\winrt;C:\Tools\SDK\10\include\10.0.18362.0\cppwinrt
 set LIB=C:\Tools\VC\Tools\MSVC\14.22.27905\atlmfc\lib\x86;C:\Tools\VC\Tools\MSVC\14.22.27905\lib\x86;C:\Tools\SDK\10\lib\10.0.18362.0\ucrt\x86;C:\Tools\SDK\10\lib\10.0.18362.0\um\x86

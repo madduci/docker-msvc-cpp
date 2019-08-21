@@ -85,7 +85,8 @@ string(REPLACE  "\\" "/" MSVC_REDIST_DIR "${MSVC_REDIST_DIR}")
 
 ### Conan 
 
-Conan by default tries to use Visual Studio as generator when used with CMake. You need to run the build step by invoking CMake as follows in your `conanfile.py`:
+Conan by default tries to use Visual Studio as generator when used with CMake. 
+You have two options: set the environment variable **CONAN_CMAKE_GENERATOR** to "NMake Makefiles" ([see here](https://github.com/conan-io/conan/issues/2388)) or you can run the build step by invoking CMake as follows in your `conanfile.py`:
 
 ```
 def build(self):

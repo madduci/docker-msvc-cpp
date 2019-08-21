@@ -22,8 +22,11 @@ class WineTestConan(ConanFile):
     _build_subfolder = "build_subfolder"
 
     def build(self):
-        self.run('cmake -g "{generator}" -DCMAKE_BUILD_TYPE={build_type} {source}'.format(generator="NMake MakeFiles", build_type="Release", source=self.source_folder))
-        self.run('cmake --build . ')
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.buld()
+        #self.run('cmake -g "{generator}" -DCMAKE_BUILD_TYPE={build_type} {source}'.format(generator="NMake MakeFiles", build_type="Release", source=self.source_folder))
+        #self.run('cmake --build . ')
         self.run('cmake --build . --target package')
 
     def package(self):
