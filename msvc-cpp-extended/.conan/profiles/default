@@ -7,7 +7,6 @@ build_type=Release
 compiler=Visual Studio
 compiler.runtime=MT
 compiler.version=16
-compiler.toolset=v142
 compiler.cppstd=17
 
 [options]
