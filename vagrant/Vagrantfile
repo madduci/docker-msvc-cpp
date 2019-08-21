@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  
+  config.vm.box = "gusztavvargadr/windows-10"
+  # Share an additional folder to the guest VM.
+  # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder "packages/", "C:\\Packages"
+
+  config.vm.provider "virtualbox" do |vb|
+      vb.name = "windows-10-cpp"
+      vb.gui = true
+      vb.cpus = 2
+      vb.memory = "4098"
+  end
+
+  config.winrm.timeout =   1800 # 30 minutes
+  config.vm.boot_timeout = 1800 # 30 minutes
+
+  config.vm.provision "shell", path: "install_tools.ps1"
+end
