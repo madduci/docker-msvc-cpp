@@ -1,0 +1,23 @@
+FROM docker-wine:4.0-stable
+
+WORKDIR /home/wine/.wine/drive_c
+
+COPY --chown=wine:root msvcenv_x86.bat /home/wine/.wine/drive_c/Tools/msvcenv_x86.bat
+COPY --chown=wine:root msvcenv_x64.bat /home/wine/.wine/drive_c/Tools/msvcenv_x64.bat
+ 
+USER root
+
+RUN echo "Extracting Visual C++ compiler" \
+    && curl -L http://172.17.0.1:20000/VC2019.zip -o /tmp/VC.zip \
+    && unzip -d /home/wine/.wine/drive_c/Tools/ -q /tmp/VC.zip ; \
+    echo "Extracting Windows SDK" \
+    && curl -L http://172.17.0.1:20000/SDK.zip -o /tmp/SDK.zip \
+    && mkdir -p /home/wine/.wine/drive_c/Tools/SDK \
+    && unzip -d /home/wine/.wine/drive_c/Tools/SDK/ -q /tmp/SDK.zip ; \
+    echo "Fixing permissions" \
+    && chown wine:root -R /home/wine/.wine/drive_c/Tools \
+    && chmod 775 -R /home/wine/.wine/drive_c/Tools \
+    && echo "Removing downloaded zip files" \
+    && rm -rf /tmp/*.zip
+
+USER wine
