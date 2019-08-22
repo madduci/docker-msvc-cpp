@@ -66,7 +66,7 @@ C:>C:\Tools\msvcenv_x64.bat
 # In CMD - 32 Bit compiler
 C:>C:\Tools\msvcenv_x86.bat 
 C:>cl /?
-C:>conan -version
+C:>conan --version
 C:>cmake --version
 ```
 
