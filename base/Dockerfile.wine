@@ -6,8 +6,6 @@ ENV WINEARCH=win64 \
     WINE_MONO_VERSION=4.9.2 \
     WINE_GECKO_VERSION=2.4.7
 
-COPY xvfb-start.sh /usr/bin/xvfb-start
-
 RUN export DEBIAN_FRONTEND="noninteractive" \
     && echo "Configuring Ubuntu mirrors with German country code and required tools for Wine" \
     && sed -i -e 's/http:\/\/archive/http:\/\/de.archive/' /etc/apt/sources.list \
@@ -16,7 +14,6 @@ RUN export DEBIAN_FRONTEND="noninteractive" \
         gnupg2 \
         ca-certificates \
         curl \
-        xvfb \
         p7zip \
         unzip \
         zenity \

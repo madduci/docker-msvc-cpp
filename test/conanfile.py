@@ -24,7 +24,7 @@ class WineTestConan(ConanFile):
     def build(self):
         cmake = CMake(self)
         cmake.configure()
-        cmake.buld()
+        cmake.build()
         #self.run('cmake -g "{generator}" -DCMAKE_BUILD_TYPE={build_type} {source}'.format(generator="NMake MakeFiles", build_type="Release", source=self.source_folder))
         #self.run('cmake --build . ')
         self.run('cmake --build . --target package')

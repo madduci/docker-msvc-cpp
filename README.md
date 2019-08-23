@@ -1,4 +1,4 @@
-# docker-linux-msvc-cpp
+# docker-msvc-cpp
 
 This is a reproducible Linux-based Dockerfile for cross compiling with MSVC, Conan and CMake, usable as base image for CI style setups.
 
@@ -66,7 +66,7 @@ C:>C:\Tools\msvcenv_x64.bat
 # In CMD - 32 Bit compiler
 C:>C:\Tools\msvcenv_x86.bat 
 C:>cl /?
-C:>conan -version
+C:>conan --version
 C:>cmake --version
 ```
 
