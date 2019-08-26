@@ -65,4 +65,4 @@ RUN echo "Download wine extension packages for user" \
 
 ENTRYPOINT [ "/bin/bash" ]
 
-CMD [ "-c" "wine64 cmd" ]
+CMD [ "-c", "wine64 cmd" ]
