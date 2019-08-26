@@ -21,6 +21,7 @@ RUN echo "Extracting CMake" \
     && unzip -d /home/wine/.wine/drive_c/Tools/Wix -q /tmp/WIX.zip ; \
     echo "Fixing permissions" \
     && chown wine:root -R /home/wine/.wine/drive_c/Tools \
-    && chmod 775 -R /home/wine/.wine/drive_c/Tools
+    && chmod 775 -R /home/wine/.wine/drive_c/Tools \
+    && rm -rf /tmp/*
 
 USER wine

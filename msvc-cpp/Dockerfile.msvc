@@ -18,6 +18,6 @@ RUN echo "Extracting Visual C++ compiler" \
     && chown wine:root -R /home/wine/.wine/drive_c/Tools \
     && chmod 775 -R /home/wine/.wine/drive_c/Tools \
     && echo "Removing downloaded zip files" \
-    && rm -rf /tmp/*.zip
+    && rm -rf /tmp/*
 
 USER wine
