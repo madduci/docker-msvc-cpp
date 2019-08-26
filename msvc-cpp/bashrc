@@ -1,0 +1,30 @@
+#!/bin/bash
+
+export PROCESSOR_ARCHITECTURE=AMD64
+export INCLUDE="C:\\Tools\\VC\\Tools\\MSVC\\14.22.27905\\atlmfc\\include;C:\\Tools\\VC\\Tools\\MSVC\\14.22.27905\\include;C:\\Tools\\SDK\\10\\include\\10.0.18362.0\\ucrt;C:\\Tools\\SDK\\10\\include\\10.0.18362.0\\shared;C:\\Tools\\SDK\\10\\include\\10.0.18362.0\\um;C:\\Tools\\SDK\\10\\include\\10.0.18362.0\\winrt;C:\\Tools\\SDK\\10\\include\\10.0.18362.0\\cppwinrt"
+export LIB="C:\\Tools\\VC\\Tools\\MSVC\\14.22.27905\\atlmfc\\lib\\x64;C:\\Tools\\VC\\Tools\\MSVC\\14.22.27905\\lib\\x64;C:\\Tools\\SDK\\10\\lib\\10.0.18362.0\\ucrt\\x64;C:\\Tools\\SDK\\10\\lib\\10.0.18362.0\\um\\x64"
+export LIBPATH="C:\\Tools\\VC\\Tools\\MSVC\\14.22.27905\\atlmfc\\lib\\x64;C:\\Tools\\VC\\Tools\\MSVC\\14.22.27905\\lib\\x64;C:\\Tools\\VC\\Tools\\MSVC\\14.22.27905\\lib\\x86\\store\\references;C:\\Tools\\SDK\\10\\UnionMetadata\\10.0.18362.0;C:\\Tools\\SDK\\10\\References\\10.0.18362.0;"
+export WINEPATH="C:\\Tools\\VC\\Tools\\MSVC\\14.22.27905\\bin\\HostX64\\x64;C:\\Tools\\SDK\\10\\bin\\10.0.18362.0\\x64;C:\\Tools\\SDK\\10\\bin\\x64;$WINEPATH"
+export PATHEXT=".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC"
+export Platform=x64
+export UCRTVersion=10.0.18362.0
+export UniversalCRTSdkDir=C:\\Tools\\SDK\\10\\
+export VS160COMNTOOLS=C:\\Tools\\Common7\\Tools\\
+export VSINSTALLDIR=C:\\Tools\\
+export VCINSTALLDIR=C:\\Tools\\VC\\
+export VCToolsInstallDir=C:\\Tools\\VC\\Tools\\MSVC\\14.22.27905\\
+export VCToolsRedistDir=C:\\Tools\\VC\\Redist\\MSVC\\14.22.27821\\
+export VCToolsVersion=14.22.27905
+export VisualStudioVersion=16.0
+export VSCMD_ARG_app_plat=Desktop
+export VSCMD_ARG_HOST_ARCH=x64
+export VSCMD_ARG_TGT_ARCH=x64
+export VSCMD_VER=16.2.2
+export WindowsLibPath="C:\\Tools\\SDK\\10\\UnionMetadata\\10.0.18362.0;C:\\Tools\\SDK\\10\\References\\10.0.18362.0"
+export WindowsSdkBinPath=C:\\Tools\\SDK\\10\\bin\\
+export WindowsSdkDir=C:\\Tools\\SDK\\10\\
+export WindowsSDKLibVersion=10.0.18362.0\\
+export WindowsSdkVerBinPath=C:\\Tools\\SDK\\10\\bin\\10.0.18362.0\\
+export WindowsSDKVersion=10.0.18362.0\\
+export __DOTNET_ADD_64BIT=1
+export __DOTNET_PREFERRED_BITNESS=64

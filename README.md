@@ -1,6 +1,6 @@
 # docker-msvc-cpp
 
-This is a reproducible Linux-based Dockerfile for cross compiling with MSVC, Conan and CMake, usable as base image for CI style setups.
+This is a reproducible Linux-based Dockerfile for cross compiling with MSVC, Conan, CMake, Ninja and Wix Toolset, usable as base image for CI style setups.
 
 This requires a zipped package of a real MSVC installation from Windows
 (currently only supporting MSVC 2019, tested 16.2), which isn't redistributable.
@@ -35,9 +35,11 @@ The first script will start a Vagrant/Virtualbox Virtual Machine with Windows 10
 
 The second script will launch in background a python server on port 20000, self-hosting the ZIP archives and then build 3 docker images:
 
-* docker-wine, with only wine-stable (4.0 at time of writing), .NET 4.5 and initialized as Windows 10
-* docker-msvc, with the required Visual C++ files (cl, link, nmake) and the latest Windows 10 SDK
-* docker-msvc-extended, with the above files and CMake, Wix and Conan
+* **docker-wine**, with only wine-stable (4.0 at time of writing), .NET 4.5 and initialized as Windows 10
+* **docker-msvc**, with the required Visual C++ files (cl, link, nmake) and the latest Windows 10 SDK
+* **docker-msvc-extended**, with the above files and CMake, Conan, Ninja and Wix
+
+The master branch points to a Ubuntu-derived image that uses Wine 4.0 stable, while the `archlinux` branch uses ArchLinux to set Wine 4.x staging.
 
 ## Usage
 
@@ -47,6 +49,8 @@ After building the final docker image, there is a `/home/wine/.wine/drive_c/Tool
 - /home/wine/.wine/drive_c/Tools/msvcenv_x64.bat
 
 They contain Windows paths (as 'C:\\..').
+
+By default, thanks to a specific .bashrc file for the `wine` user,  the x64 build tools are loaded by default.
 
 To start the image and execute a prepared Windows batch script, just run it as 
 
@@ -61,7 +65,7 @@ docker run --rm -it --entrypoint /bin/bash -v HOST_PATH_TO_MOUNT:TARGET_PATH doc
 
 # In Bash
 $.wine/drive_c> wine cmd
-# In CMD - 64 Bit compiler
+# In CMD - 64 Bit compiler (loaded by default at first launch)
 C:>C:\Tools\msvcenv_x64.bat 
 # In CMD - 32 Bit compiler
 C:>C:\Tools\msvcenv_x86.bat 
@@ -71,6 +75,10 @@ C:>cmake --version
 ```
 
 ## Caveats
+
+### Visual C++ 
+
+It has been noticed that on some code, the 32 Bit compiler triggers internal compiler errors (like `C1001`), especially when dealing with some Windows-specific header file, such as ATL/MFC related code. On a 64 Bit build, those problems don't appear and the build works fine. It seems that some compiler flags are also affecting those 32 Bit builds.
 
 ### CMake
 
@@ -95,6 +103,8 @@ def build(self):
         # Builds the installer, if you have set CPACK and WIX in CMake
         self.run('cmake --build . --target package')
 ```
+
+The extended image comes also with Ninja, so you can speed up your builds by setting "Ninja" as generator, instead of "NMake MakeFiles"
 
 ### WIX Toolset
 

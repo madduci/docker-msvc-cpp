@@ -1,5 +1,6 @@
 FROM docker-msvc:16.2-2019
 
+COPY --chown=wine:root bashrc.bat /home/wine/.wine/.bashrc
 COPY --chown=wine:root msvcenv_x86.bat /home/wine/.wine/drive_c/Tools/msvcenv_x86.bat
 COPY --chown=wine:root msvcenv_x64.bat /home/wine/.wine/drive_c/Tools/msvcenv_x64.bat
 # Prepare Conan profile
