@@ -3,6 +3,9 @@
 # Author; Michele Adduci
 # Copyright 2019. All rights reserved 
 #
+# Powershell script to download and install automatically
+# Visual C++ 2019 tools, CMake, Conan, WIX and Ninja
+#
 ############################################
 
 ####################################
@@ -40,6 +43,15 @@ $wix_binaries_url = "https://github.com/wixtoolset/wix3/releases/download/wix311
 $wix_binaries = "$working_directory\wix.zip"
 $wix_install_path = "C:\Program Files\WIX"
 $wix_zip_output_path = "$packages_directory\WIX.zip"
+
+####################################
+# Define Ninja information
+####################################
+$ninja_version = "1.9.0"
+$ninja_binaries_url = "https://github.com/ninja-build/ninja/releases/download/v$ninja_version/ninja-win.zip"
+$ninja_binaries = "$working_directory\ninja.zip"
+$ninja_install_path = "C:\Program Files\Ninja"
+$ninja_zip_output_path = "$packages_directory\Ninja.zip"
 
 ####################################
 # Define Visual Studio information
@@ -139,6 +151,25 @@ Write-Host "Adding Wix to the environment Path"
 
 Write-Host "Copying WIX Binaries archive to the output folder"
 Copy-Item $wix_binaries -Destination "$wix_zip_output_path"
+
+####################################
+# Prepare Ninja Package
+####################################
+    
+Write-Host "Downloading Ninja $ninja_version"
+Invoke-WebRequest -Uri "$ninja_binaries_url" -OutFile "$ninja_binaries"
+
+Write-Host "Extracting Ninja Binaries into $ninja_install_path"
+Expand-Archive -LiteralPath "$ninja_binaries" -DestinationPath "$ninja_install_path"
+
+Write-Host "Adding Ninja to the environment Path"
+[Environment]::SetEnvironmentVariable(
+    "Path",
+    [Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::Machine) + ";$ninja_install_path",
+    [EnvironmentVariableTarget]::Machine)
+
+Write-Host "Copying Ninja Binaries archive to the output folder"
+Copy-Item $ninja_binaries -Destination "$ninja_zip_output_path"
 
 ####################################
 # Cleanup

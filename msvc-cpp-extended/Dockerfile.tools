@@ -13,6 +13,9 @@ RUN echo "Extracting CMake" \
     echo "Extracting Conan" \
     && curl -L http://172.17.0.1:20000/Conan.zip -o /tmp/Conan.zip \
     && unzip -d /home/wine/.wine/drive_c/Tools/ -q /tmp/Conan.zip ; \
+    echo "Extracting Ninja" \
+    && curl -L http://172.17.0.1:20000/Ninja.zip -o /tmp/Ninja.zip \
+    && unzip -d /home/wine/.wine/drive_c/Tools/Ninja -q /tmp/Ninja.zip ; \
     echo "Extracting Wix Toolset" \
     && curl -L http://172.17.0.1:20000/WIX.zip -o /tmp/WIX.zip \
     && unzip -d /home/wine/.wine/drive_c/Tools/Wix -q /tmp/WIX.zip ; \
