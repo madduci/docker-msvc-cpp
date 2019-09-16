@@ -33,11 +33,10 @@ To build the docker image, you need to run the following commands:
 
 The first script will start a Vagrant/Virtualbox Virtual Machine with Windows 10, which will execute an unattended installation of Visual C++ tools, together with CMake, Conan and Wix Toolset. Once the installation is completed, the required files will be compressed in ZIP archives.
 
-The second script will launch in background a python server on port 20000, self-hosting the ZIP archives and then build 3 docker images:
+The second script will launch in background a python server on port 20000, self-hosting the ZIP archives and then build 2 docker images:
 
 * **docker-wine**, with only wine-stable (4.0 at time of writing), .NET 4.5 and initialized as Windows 10
-* **docker-msvc**, with the required Visual C++ files (cl, link, nmake) and the latest Windows 10 SDK
-* **docker-msvc-extended**, with the above files and CMake, Conan, Ninja and Wix
+* **docker-wine-msvc**, with the required Visual C++ files (cl, link, nmake), the latest Windows 10 SDK, CMake, Conan, Ninja and Wix.
 
 The master branch points to a Ubuntu-derived image that uses Wine 4.0 stable, while the `archlinux` branch uses ArchLinux to set Wine 4.x staging.
 
@@ -55,7 +54,7 @@ By default, thanks to a specific .bashrc file for the `wine` user,  the x64 buil
 To start the image and execute a prepared Windows batch script, just run it as 
 
 ```
-docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-msvc-extended:16.2-2019 cmd /c YOUR_SCRIPT_IN_TARGET_PATH
+docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.2-2019 cmd /c YOUR_SCRIPT_IN_TARGET_PATH
 ```
 
 alternatively, to issue interactive commands, 

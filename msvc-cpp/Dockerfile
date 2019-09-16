@@ -1,9 +1,11 @@
 FROM docker-wine:4.0-stable
 
-#COPY --chown=wine:root msvcenv_x86.bat /home/wine/.wine/drive_c/Tools/msvcenv_x86.bat
-COPY --chown=wine:root msvcenv_x64.bat /home/wine/.wine/drive_c/Tools/msvcenv_x64.bat
+# Set batch scripts to set 32 or 64 Bit environments
+COPY --chown=wine:root x86.bat /home/wine/.wine/drive_c/x86.bat
+COPY --chown=wine:root x64.bat /home/wine/.wine/drive_c/x64.bat
 # Prepare Conan profile
-#COPY --chown=wine:root .conan/profiles/default /home/wine/.wine/drive_c/users/wine/.conan/profiles/default
+COPY --chown=wine:root .conan/profiles/default /home/wine/.wine/drive_c/users/wine/.conan/profiles/default
+COPY --chown=wine:root .conan/profiles/win32 /home/wine/.wine/drive_c/users/wine/.conan/profiles/win32
 
 WORKDIR /home/wine/.wine/drive_c
 
@@ -31,6 +33,8 @@ RUN echo "Extracting Visual C++ compiler" \
     echo "Fix Permissions" \
     && chown -R wine:root ./Tools \
     && chmod -R 775 ./Tools ; \
+    echo "Removing telemetry tool VCTIP from VC" \
+    && find ./Tools/VC -type f -name 'VCTIP.exe' -exec rm -rf "{}" +; \
     echo "Removing LLVM libraries from VC" \
     && find ./Tools/VC -type d -name 'Llvm' -exec rm -rf "{}" +; \
     echo "Removing arm libraries from SDK" \
