@@ -44,8 +44,8 @@ The master branch points to a Ubuntu-derived image that uses Wine 4.0 stable, wh
 
 After building the final docker image, there is a `/home/wine/.wine/drive_c/Tools` folder, containing all the required tools, plus two batch files that can switch between 32 and 64 bit compilers, in the specific 
 
-- /home/wine/.wine/drive_c/Tools/msvcenv_x86.bat
-- /home/wine/.wine/drive_c/Tools/msvcenv_x64.bat
+- /home/wine/.wine/drive_c/x86.bat
+- /home/wine/.wine/drive_c/x64.bat
 
 They contain Windows paths (as 'C:\\..').
 
@@ -57,7 +57,7 @@ To start the image and execute a prepared Windows batch script, just run it as
 docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.2-2019 cmd /c YOUR_SCRIPT_IN_TARGET_PATH
 ```
 
-alternatively, to issue interactive commands, 
+alternatively, to issue interactive commands:
 
 ```
 docker run --rm -it --entrypoint /bin/bash -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-msvc-extended:16.2-2019
@@ -65,9 +65,9 @@ docker run --rm -it --entrypoint /bin/bash -v HOST_PATH_TO_MOUNT:TARGET_PATH doc
 # In Bash
 $.wine/drive_c> wine cmd
 # In CMD - 64 Bit compiler (loaded by default at first launch)
-C:>C:\Tools\msvcenv_x64.bat 
+C:>C:\x64.bat 
 # In CMD - 32 Bit compiler
-C:>C:\Tools\msvcenv_x86.bat 
+C:>C:\x86.bat 
 C:>cl /?
 C:>conan --version
 C:>cmake --version
@@ -103,7 +103,7 @@ def build(self):
         self.run('cmake --build . --target package')
 ```
 
-The extended image comes also with Ninja, so you can speed up your builds by setting "Ninja" as generator, instead of "NMake MakeFiles"
+The extended image comes also with Ninja, so you can speed up your builds by setting "Ninja" as generator, instead of "NMake MakeFiles".
 
 ### WIX Toolset
 

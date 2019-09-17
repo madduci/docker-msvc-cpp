@@ -37,6 +37,8 @@ RUN echo "Extracting Visual C++ compiler" \
     && find ./Tools/VC -type f -name 'VCTIP.exe' -exec rm -rf "{}" +; \
     echo "Removing LLVM libraries from VC" \
     && find ./Tools/VC -type d -name 'Llvm' -exec rm -rf "{}" +; \
+    echo "Removing HostX86 folder from VC" \
+    && find ./Tools/VC -type d -name 'HostX86' -exec rm -rf "{}" +; \
     echo "Removing arm libraries from SDK" \
     && find ./Tools/SDK -type d -name 'arm*' -exec rm -rf "{}" +; \
     echo "Removing old SDK versions" \

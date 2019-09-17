@@ -5,4 +5,4 @@ vagrant up
 vagrant halt
 vagrant destroy -f
 
-#cd ..
+cd ..

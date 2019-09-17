@@ -2,7 +2,7 @@
 os=Windows
 os_build=Windows
 arch=x86
-arch_build=x86
+arch_build=x86_64
 build_type=Release
 compiler=Visual Studio
 compiler.runtime=MT
