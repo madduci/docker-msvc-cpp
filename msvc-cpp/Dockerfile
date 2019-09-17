@@ -4,8 +4,7 @@ FROM docker-wine:4.0-stable
 COPY --chown=wine:root x86.bat /home/wine/.wine/drive_c/x86.bat
 COPY --chown=wine:root x64.bat /home/wine/.wine/drive_c/x64.bat
 # Prepare Conan profile
-COPY --chown=wine:root .conan/profiles/default /home/wine/.wine/drive_c/users/wine/.conan/profiles/default
-COPY --chown=wine:root .conan/profiles/win32 /home/wine/.wine/drive_c/users/wine/.conan/profiles/win32
+ADD --chown=wine:root .conan /home/wine/.wine/drive_c/users/wine/.conan
 
 WORKDIR /home/wine/.wine/drive_c
 
@@ -37,8 +36,8 @@ RUN echo "Extracting Visual C++ compiler" \
     && find ./Tools/VC -type f -name 'VCTIP.exe' -exec rm -rf "{}" +; \
     echo "Removing LLVM libraries from VC" \
     && find ./Tools/VC -type d -name 'Llvm' -exec rm -rf "{}" +; \
-    echo "Removing HostX86 folder from VC" \
-    && find ./Tools/VC -type d -name 'HostX86' -exec rm -rf "{}" +; \
+    echo "Removing Hostx86 folder from VC" \
+    && find ./Tools/VC -type d -name 'Hostx86' -exec rm -rf "{}" +; \
     echo "Removing arm libraries from SDK" \
     && find ./Tools/SDK -type d -name 'arm*' -exec rm -rf "{}" +; \
     echo "Removing old SDK versions" \
