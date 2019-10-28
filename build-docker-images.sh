@@ -7,7 +7,7 @@ docker-compose up -d
 docker build --no-cache -t docker-wine:4.0-stable -f base/Dockerfile base/
 
 # Build extended Docker Image (with CMake, Wix and Conan)
-docker build --no-cache -t docker-wine-msvc:16.2-2019 -f msvc-cpp/Dockerfile msvc-cpp/
+docker build --no-cache -t docker-wine-msvc:16.3-2019 -f msvc-cpp/Dockerfile msvc-cpp/
 
 # Shutdown python server serving packages
 docker-compose down -v
