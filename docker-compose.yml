@@ -1,7 +1,7 @@
 version: "2.4"
 services:
   server: 
-    image: "python:3.7"
+    image: "python:3.8"
     ports:
       - 20000:20000
     volumes:

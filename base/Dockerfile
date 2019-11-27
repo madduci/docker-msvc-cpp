@@ -3,7 +3,7 @@ FROM ubuntu:18.04
 ENV WINEARCH=win64 \
     WINEDEBUG=-all,err \ 
     DISPLAY=:0.0 \
-    WINE_MONO_VERSION=4.9.2 \
+    WINE_MONO_VERSION=4.9.4 \
     WINE_GECKO_VERSION=2.4.7
 
 RUN export DEBIAN_FRONTEND="noninteractive" \
