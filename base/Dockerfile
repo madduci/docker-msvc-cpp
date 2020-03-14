@@ -1,10 +1,10 @@
-FROM ubuntu:18.04
+FROM ubuntu:19.10
 
 ENV WINEARCH=win64 \
     WINEDEBUG=-all,err \ 
     DISPLAY=:0.0 \
     WINE_MONO_VERSION=4.9.4 \
-    WINE_GECKO_VERSION=2.4.7
+    WINE_GECKO_VERSION=2.47.1
 
 RUN export DEBIAN_FRONTEND="noninteractive" \
     && echo "Configuring Ubuntu mirrors with German country code and required tools for Wine" \
@@ -21,12 +21,12 @@ RUN export DEBIAN_FRONTEND="noninteractive" \
         binutils \
         winbind \
     && echo "Configuring WineHQ mirror" \
+    && dpkg --add-architecture i386 \
     && curl -L https://dl.winehq.org/wine-builds/winehq.key -o /etc/apt/winehq.key \
     && apt-key add /etc/apt/winehq.key \
-    && echo "deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main" >> /etc/apt/sources.list \
-    && dpkg --add-architecture i386 \
+    && echo "deb https://dl.winehq.org/wine-builds/ubuntu/ eoan main" >> /etc/apt/sources.list \
     && apt-get update \
-    && apt-get install -y \
+    && apt-get install -y --install-recommends \
         winehq-stable \
     && echo "Download winetricks" \
     && curl -L https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks -o /usr/local/bin/winetricks \
