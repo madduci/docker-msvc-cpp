@@ -19,7 +19,7 @@ $packages_directory = "C:\Packages"
 ####################################
 # Define CMake information
 ####################################
-$cmake_version = "3.16.0"
+$cmake_version = "3.16.5"
 $cmake_platform = "win64-x64"
 $cmake_installer_url = "https://github.com/Kitware/CMake/releases/download/v$cmake_version/cmake-$cmake_version-$cmake_platform.msi"
 $cmake_installer_msi = "$working_directory\cmake.msi"
@@ -29,8 +29,8 @@ $cmake_zip_output_path = "$packages_directory\CMake"
 ####################################
 # Define Conan information
 ####################################
-$conan_version = "1.20.4"
-$conan_version_classifier = "win-64_1_20_4"
+$conan_version = "1.23.0"
+$conan_version_classifier = "win-64_1_23_0"
 $conan_installer_url = "https://github.com/conan-io/conan/releases/download/$conan_version/conan-$conan_version_classifier.exe"
 $conan_installer_exe = "$working_directory\conan.exe"
 $conan_install_path = "C:\Program Files\Conan"
@@ -40,7 +40,7 @@ $conan_zip_output_path = "$packages_directory\Conan"
 # Define WIX information
 ####################################
 $wix_version = "311"
-$wix_binaries_url = "https://github.com/wixtoolset/wix3/releases/download/wix3111rtm/wix311-binaries.zip"
+$wix_binaries_url = "https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311-binaries.zip"
 $wix_binaries = "$working_directory\wix.zip"
 $wix_install_path = "C:\Program Files\WIX"
 $wix_zip_output_path = "$packages_directory\WIX.zip"
@@ -48,7 +48,7 @@ $wix_zip_output_path = "$packages_directory\WIX.zip"
 ####################################
 # Define Ninja information
 ####################################
-$ninja_version = "1.9.0"
+$ninja_version = "1.10.0"
 $ninja_binaries_url = "https://github.com/ninja-build/ninja/releases/download/v$ninja_version/ninja-win.zip"
 $ninja_binaries = "$working_directory\ninja.zip"
 $ninja_install_path = "C:\Program Files\Ninja"
