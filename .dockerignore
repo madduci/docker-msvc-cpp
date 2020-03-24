@@ -1,2 +1,4 @@
 README
 vagrant/
+*.sh
+docker-compose.yml

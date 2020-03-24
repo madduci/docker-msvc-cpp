@@ -3,7 +3,7 @@
 This is a reproducible Linux-based Dockerfile for cross compiling with MSVC, Conan, CMake, Ninja and Wix Toolset, usable as base image for CI style setups.
 
 This requires a zipped package of a real MSVC installation from Windows
-(currently only supporting MSVC 2019, tested 16.2), which isn't redistributable.
+(currently only supporting MSVC 2019, tested 16.5), which isn't redistributable.
 
 The MSVC installation can be performed using a Vagrant box and executing the installation of MSVC Community Edition, whose Vagrantfile is included in this repository.
 
@@ -35,10 +35,10 @@ The first script will start a Vagrant/Virtualbox Virtual Machine with Windows 10
 
 The second script will launch in background a python server on port 20000, self-hosting the ZIP archives and then build 2 docker images:
 
-* **docker-wine**, with only wine-stable (4.0 at time of writing), .NET 4.5 and initialized as Windows 10
+* **docker-wine**, with only wine-stable (5.0 at time of writing), .NET 4.5 and initialized as Windows 10
 * **docker-wine-msvc**, with the required Visual C++ files (cl, link, nmake), the latest Windows 10 SDK, CMake, Conan, Ninja and Wix.
 
-The master branch points to a Ubuntu-derived image that uses Wine 4.0 stable, while the `archlinux` branch uses ArchLinux to set Wine 4.x staging.
+The master branch points to a Ubuntu-derived image that uses Wine 5.0 stable, while the `archlinux` branch uses ArchLinux to set Wine 4.x staging.
 
 ## Usage
 
