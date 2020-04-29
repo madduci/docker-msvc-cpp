@@ -1,4 +1,4 @@
-FROM docker-wine:5.0-stable
+FROM docker-wine:5-staging
 
 # Set batch scripts to set 32 or 64 Bit environments
 COPY --chown=wine:root x86.bat /home/wine/.wine/drive_c/x86.bat
