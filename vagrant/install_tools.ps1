@@ -19,7 +19,7 @@ $packages_directory = "C:\Packages"
 ####################################
 # Define CMake information
 ####################################
-$cmake_version = "3.17.2"
+$cmake_version = "3.17.3"
 $cmake_platform = "win64-x64"
 $cmake_installer_url = "https://github.com/Kitware/CMake/releases/download/v$cmake_version/cmake-$cmake_version-$cmake_platform.msi"
 $cmake_installer_msi = "$working_directory\cmake.msi"
@@ -29,8 +29,8 @@ $cmake_zip_output_path = "$packages_directory\CMake"
 ####################################
 # Define Conan information
 ####################################
-$conan_version = "1.25.2"
-$conan_version_classifier = "win-64_1_25_2"
+$conan_version = "1.26.0"
+$conan_version_classifier = "win-64_1_26_0"
 $conan_installer_url = "https://github.com/conan-io/conan/releases/download/$conan_version/conan-$conan_version_classifier.exe"
 $conan_installer_exe = "$working_directory\conan.exe"
 $conan_install_path = "C:\Program Files\Conan"
@@ -64,13 +64,16 @@ $ninja_zip_output_path = "$packages_directory\Ninja.zip"
 # VS2019 Community Edition
 $vs_installer_url = "https://download.visualstudio.microsoft.com/download/pr/7b196ac4-65a9-4fde-b720-09b5339dbaba/78df39539625fa4e6c781c6a2aca7b4f/vs_community.exe"
 $vs_installer_exe = "$working_directory\vs_community.exe"
-$vs_install_path = "C:\vs2019"
+# Defining where Visual Studio 2019 is installed
+$vs_install_path = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community"
+# Defining SDK version
 $windows_sdk_version_major = "10"
 $windows_sdk_version_minor = "18362"
+# Defining where Windows SDK is installed
+$windows_sdk_path = "C:\Program Files (x86)\Windows Kits\$windows_sdk_version_major"
 
 # Define all the desired components
-$module_msbuild = "Microsoft.Component.MSBuild"
-$module_native_desktop = "Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Core"
+$module_core_build = "Microsoft.VisualStudio.Component.VC.CoreBuildTools"
 $module_compilerx86 = "Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
 $module_vcredist ="Microsoft.VisualStudio.Component.VC.Redist.14.Latest"
 $module_atl = "Microsoft.VisualStudio.Component.VC.ATL"
@@ -78,19 +81,9 @@ $module_atlfmfc = "Microsoft.VisualStudio.Component.VC.ATLMFC"
 $module_sdk = "Microsoft.VisualStudio.Component.Windows10SDK.$windows_sdk_version_minor"
 # Wait until the completion of the installer, do not restart the machine, don't show UI
 $vs_silent_args = "--quiet --wait --norestart"
-# Defining where Visual C/C++ tools are installed
-$visualc_path = "$vs_install_path\VC"
-# Defining where Windows SDK is installed
-$windows_sdk_path = "C:\Program Files (x86)\Windows Kits\$windows_sdk_version_major"
 # Defining output path for archiving Visual C/C++ and Windows SDK
-$vc_zip_output_path = "$packages_directory\VC2019"
+$vs_zip_output_path = "$packages_directory\VC2019"
 $sdk_zip_output_path = "$packages_directory\SDK"
-
-####################################
-# Create Folder to store packages
-####################################
-
-New-Item $packages_directory -ItemType directory
 
 ####################################
 # Prepare Visual Studio Package
@@ -100,10 +93,13 @@ Write-Host "Downloading Visual Studio 2019 Community Edition"
 Invoke-WebRequest -Uri "$vs_installer_url" -OutFile "$vs_installer_exe"
 
 Write-Host "Installing C++ Development Environment"
-Start-Process -FilePath "$vs_installer_exe" -Wait -ArgumentList "$vs_silent_args --installPath `"$vs_install_path`" --add $module_msbuild --add $module_vcredist --add $module_native_desktop --add $module_sdk --add $module_atlfmfc --add $module_atl --add $module_compilerx86";
+Start-Process -FilePath "$vs_installer_exe" -Wait -ArgumentList "$vs_silent_args  --add $module_vcredist --add $module_core_build --add $module_sdk --add $module_atlfmfc --add $module_atl --add $module_compilerx86";
 
-Write-Host "Compressing Visual C++ files in an archive"
-Compress-Archive -Path "$visualc_path" -DestinationPath "$vc_zip_output_path"
+# Define the folders to exclude from final archive
+$DirsToInclude=@("$vs_install_path\Common7\Tools", "$vs_install_path\VC")
+
+Write-Host "Compressing Visual Studio 2019 files in an archive"
+Compress-Archive -DestinationPath $vs_zip_output_path $DirsToInclude
 
 Write-Host "Compressing Windows $windows_sdk_version_major-$windows_sdk_version_minor SDK files in an archive"
 Compress-Archive -Path "$windows_sdk_path" -DestinationPath "$sdk_zip_output_path"

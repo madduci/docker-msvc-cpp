@@ -10,9 +10,8 @@ class WineTestConan(ConanFile):
     topics = ("wine", "test", "msvc")
     url = ""
     homepage = ""
-    author = "Michele Adduci <michele.adduci@openlimit.com>"
+    author = "Michele Adduci <adduci@tutanota.com>"
     license = ""  # Indicates license type of the packaged library; please use SPDX Identifiers https://spdx.org/licenses/
-    exports = ["LICENSE.md", "FindGSOAP.cmake"]      # Packages the license for the conanfile.py
     exports_sources = ["CMakeLists.txt", "test.cpp"]
     generators = "cmake"
     short_paths = True
@@ -25,8 +24,6 @@ class WineTestConan(ConanFile):
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
-        #self.run('cmake -g "{generator}" -DCMAKE_BUILD_TYPE={build_type} {source}'.format(generator="NMake MakeFiles", build_type="Release", source=self.source_folder))
-        #self.run('cmake --build . ')
         self.run('cmake --build . --target package')
 
     def package(self):
