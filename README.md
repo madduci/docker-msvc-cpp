@@ -3,7 +3,7 @@
 This is a reproducible Linux-based Dockerfile for cross compiling with MSVC, Conan, CMake, Ninja and Wix Toolset, usable as base image for CI style setups.
 
 This requires a zipped package of a real MSVC installation from Windows
-(currently only supporting MSVC 2019, tested 16.5), which isn't redistributable.
+(currently only supporting MSVC 2019, tested until 16.6), which isn't redistributable.
 
 The MSVC installation can be performed using a Vagrant box and executing the installation of MSVC Community Edition, whose Vagrantfile is included in this repository.
 
@@ -18,8 +18,8 @@ The MSVC installation can be performed using a Vagrant box and executing the ins
 
 ### Software
 
-* Virtualbox (5.x/6.x)
-* Docker 18.06+
+* Virtualbox (6.x)
+* Docker Engine 18.06+
 * Docker-Compose 1.20+
 
 ## Build
@@ -35,10 +35,8 @@ The first script will start a Vagrant/Virtualbox Virtual Machine with Windows 10
 
 The second script will launch in background a python server on port 20000, self-hosting the ZIP archives and then build 2 docker images:
 
-* **docker-wine**, with only wine-stable (5.0 at time of writing), .NET 4.5 and initialized as Windows 10
+* **docker-wine**, with only wine-stable (5.0 at time of writing), .NET 4.8 and initialized as Windows 10
 * **docker-wine-msvc**, with the required Visual C++ files (cl, link, nmake), the latest Windows 10 SDK, CMake, Conan, Ninja and Wix.
-
-The master branch points to a Ubuntu-derived image that uses Wine 5.0 stable, while the `archlinux` branch uses ArchLinux to set Wine 4.x staging.
 
 ## Usage
 
@@ -49,12 +47,12 @@ After building the final docker image, there is a `/home/wine/.wine/drive_c/Tool
 
 They contain Windows paths (as 'C:\\..').
 
-By default, thanks to a specific .bashrc file for the `wine` user,  the x64 build tools are loaded by default.
+The entrypoint of the Docker Image is set to be the `cmd` console, started with as a `wine` process and with the x64 tools and environment variables loaded by default.
 
 To start the image and execute a prepared Windows batch script, just run it as 
 
 ```
-docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.2-2019 cmd /c YOUR_SCRIPT_IN_TARGET_PATH
+docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.6-2019 "YOUR_SCRIPT_IN_TARGET_PATH"
 ```
 
 alternatively, to issue interactive commands:
@@ -66,8 +64,6 @@ docker run --rm -it --entrypoint /bin/bash -v HOST_PATH_TO_MOUNT:TARGET_PATH doc
 $.wine/drive_c> wine cmd
 # In CMD - 64 Bit compiler (loaded by default at first launch)
 C:>C:\x64.bat 
-# In CMD - 32 Bit compiler
-C:>C:\x86.bat 
 C:>cl /?
 C:>conan --version
 C:>cmake --version
@@ -81,7 +77,7 @@ It has been noticed that on some code, the 32 Bit compiler triggers internal com
 
 ### CMake
 
-The *Visual Studio* CMake generator doesn't work, due to issues with MSBuild 16.0 and wine. CMake can be used only with *NMake Makefiles*. See the test project contained in this repository.
+The *Visual Studio* CMake generator doesn't work, due to issues with MSBuild 16.0 and wine. CMake can be used only with *NMake Makefiles* or, if you prefer, with *Ninja*, already included in the image. See the `test` project contained in this repository.
 
 In order to work under Wine/CMD, CMake requires the environment variable **MSVC_REDIST_DIR** and that must be transformed in Unix Path format. 
 
@@ -103,7 +99,7 @@ def build(self):
         self.run('cmake --build . --target package')
 ```
 
-The extended image comes also with Ninja, so you can speed up your builds by setting "Ninja" as generator, instead of "NMake MakeFiles".
+The extended image comes also with Ninja, so you can speed up your builds by setting "Ninja" as generator, instead of "NMake MakeFiles". This is the default choice, as **CONAN_CMAKE_GENERATOR** is set to "Ninja" in the x64.bat script.
 
 ### WIX Toolset
 
