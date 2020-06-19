@@ -2,8 +2,12 @@ FROM docker-wine:5-stable
 
 LABEL maintainer="Michele Adduci <adduci@tutanota.com>"
 
-# Set batch scripts to set 32 or 64 Bit environments
+# Set batch script to set 64 Bit environment
 COPY --chown=wine:root x64.bat /home/wine/.wine/drive_c/x64.bat
+
+# Set an application entrypoint that loads automatically the environment variables
+COPY --chown=wine:root wine64-entrypoint /usr/local/bin/wine64-entrypoint
+
 # Prepare Conan profile
 ADD --chown=wine:root .conan /home/wine/.wine/drive_c/users/wine/.conan
 
@@ -48,9 +52,10 @@ RUN echo "Extracting Visual C++ compiler" \
     && unzip -d Tools/Wix -q WIX.zip; \
     rm -rf WIX.zip \
     && echo "Fix Permissions" \
+    && chmod +x /usr/local/bin/wine64-entrypoint \
     && chown -R wine:root ./Tools Tools/VS2019 Tools/SDK || echo "Done" \
     && chmod -R 775 ./Tools Tools/VS2019 Tools/SDK || echo "Done" ;
     
 USER wine
 
-ENTRYPOINT [ "wine64", "cmd", "/k", "C:/x64.bat" ]
+ENTRYPOINT [ "/usr/local/bin/wine64-entrypoint" ]

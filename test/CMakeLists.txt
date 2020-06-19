@@ -14,6 +14,7 @@ set_target_properties(${MODULE_NAME_TEST} PROPERTIES CMAKE_CXX_FLAGS "${CMAKE_CX
 set_target_properties(${MODULE_NAME_TEST} PROPERTIES CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /W4 /WX /GL /Yu")
 set_target_properties(${MODULE_NAME_TEST} PROPERTIES CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /W4 /WX /GL /Yu")
 
+# Fixes CMake error with Windows style paths
 set(MSVC_REDIST_DIR $ENV{VCToolsRedistDir})
 string(REPLACE  "\\" "/" MSVC_REDIST_DIR "${MSVC_REDIST_DIR}")
 

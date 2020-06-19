@@ -40,30 +40,25 @@ The second script will launch in background a python server on port 20000, self-
 
 ## Usage
 
-After building the final docker image, there is a `/home/wine/.wine/drive_c/Tools` folder, containing all the required tools, plus two batch files that can switch between 32 and 64 bit compilers, in the specific 
+After building the final docker image, there is a `/home/wine/.wine/drive_c/Tools` folder, containing all the required tools, plus a batch file that can set the 64 bit environment, in the specific:
 
-- /home/wine/.wine/drive_c/x86.bat
 - /home/wine/.wine/drive_c/x64.bat
 
-They contain Windows paths (as 'C:\\..').
+It contains all the required Windows paths (as 'C:\\..').
 
-The entrypoint of the Docker Image is set to be the `cmd` console, started with as a `wine` process and with the x64 tools and environment variables loaded by default.
+The entrypoint of the Docker Image is set to be the `wine64-entrypoint` bash script that loads a 64bit Windows CMD console that waits for commands.
 
-To start the image and execute a prepared Windows batch script, just run it as 
-
+To start the image and execute a prepared Windows command or script, you **have to** call it with double-double quotes as follows:
 ```
-docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.6-2019 "YOUR_SCRIPT_IN_TARGET_PATH"
+docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.6-2019 ""YOUR_SCRIPT_IN_TARGET_PATH""
+
+docker run --rm -it docker-wine-msvc:16.6-2019 ""conan install openssl/1.1.1g@""
 ```
 
 alternatively, to issue interactive commands:
 
 ```
-docker run --rm -it --entrypoint /bin/bash -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-msvc-extended:16.2-2019
-
-# In Bash
-$.wine/drive_c> wine cmd
-# In CMD - 64 Bit compiler (loaded by default at first launch)
-C:>C:\x64.bat 
+docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-msvc-extended:16.6-2019
 C:>cl /?
 C:>conan --version
 C:>cmake --version
@@ -73,7 +68,7 @@ C:>cmake --version
 
 ### Visual C++ 
 
-It has been noticed that on some code, the 32 Bit compiler triggers internal compiler errors (like `C1001`), especially when dealing with some Windows-specific header file, such as ATL/MFC related code. On a 64 Bit build, those problems don't appear and the build works fine. It seems that some compiler flags are also affecting those 32 Bit builds.
+It has been noticed that on some code, the 32 Bit compiler triggers internal compiler errors (like `C1001`), especially when dealing with some Windows-specific header file, such as ATL/MFC related code. The 32 Bit compiler is therefore not enabled. On a 64 Bit build, those problems don't appear and the build works fine. It seems that some compiler flags are also affecting those 32 Bit builds.
 
 ### CMake
 
