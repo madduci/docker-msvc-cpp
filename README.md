@@ -1,19 +1,19 @@
 # docker-msvc-cpp
 
-This is a reproducible Linux-based Dockerfile for cross compiling with MSVC, Conan, CMake, Ninja and Wix Toolset, usable as base image for CI style setups.
+This is a reproducible Linux-based Dockerfile for cross compiling with MSVC compiler, Conan, CMake, Ninja and Wix Toolset, usable as base image for Continuous Integration setups.
 
 This requires a zipped package of a real MSVC installation from Windows
-(currently only supporting MSVC 2019, tested until 16.6), which isn't redistributable.
+(currently only supporting MSVC 2019, tested until latest 16.6), which isn't freely redistributable, so you have to build it on your own.
 
-The MSVC installation can be performed using a Vagrant box and executing the installation of MSVC Community Edition, whose Vagrantfile is included in this repository.
+The MSVC installation can be performed using a Vagrant box and executing the installation of MSVC Community Edition: a Vagrantfile and a Powershell script to prepare the require packages are included in this repository.
 
 ## Requirements
 
 ### Hardware 
 
-* Quad-Core CPU, with VT-x/AMD-v
+* Dual-Core CPU, with VT-x/AMD-v
 * 8 GByte RAM (16 GByte recommended)
-* Enough Disk Space for Vagrant and Docker images (50 GByte recommended)
+* Enough Disk Space for Vagrant and Docker images (50 GByte free recommended)
 * Fast internet connection
 
 ### Software
@@ -27,26 +27,28 @@ The MSVC installation can be performed using a Vagrant box and executing the ins
 To build the docker image, you need to run the following commands:
 
 ```
+# starts the Vagrant box, installs MSVC and the other tools and prepares the zip packages
 ./download-tools.sh
+# Builds the docker images (the Ubuntu 20.04 image with wine and the one including also the tools)
 ./build-docker-images.sh
 ```
 
-The first script will start a Vagrant/Virtualbox Virtual Machine with Windows 10, which will execute an unattended installation of Visual C++ tools, together with CMake, Conan and Wix Toolset. Once the installation is completed, the required files will be compressed in ZIP archives.
+The first script will start a Vagrant/Virtualbox Virtual Machine with Windows 10, which will execute an unattended installation of Visual C++ tools, together with CMake, Conan and Wix Toolset. Once the installation is completed, the required files will be compressed in ZIP archives and put on the host machine.
 
 The second script will launch in background a python server on port 20000, self-hosting the ZIP archives and then build 2 docker images:
 
 * **docker-wine**, with only wine-stable (5.0 at time of writing), .NET 4.8 and initialized as Windows 10
-* **docker-wine-msvc**, with the required Visual C++ files (cl, link, nmake), the latest Windows 10 SDK, CMake, Conan, Ninja and Wix.
+* **docker-wine-msvc**, with the required Visual C++ tools and libraries (cl, link, nmake, rc), the latest Windows 10 SDK, CMake, Conan, Ninja and Wix.
 
 ## Usage
 
-After building the final docker image, there is a `/home/wine/.wine/drive_c/Tools` folder, containing all the required tools, plus a batch file that can set the 64 bit environment, in the specific:
+After building the final docker image, the working directory in the docker image is set to `/home/wine/.wine/drive_c/` and in the `/home/wine/.wine/drive_c/Tools` folder are stored all the required tools, plus a batch file that can set the 64 bit environment, in the specific:
 
 - /home/wine/.wine/drive_c/x64.bat
 
-It contains all the required Windows paths (as 'C:\\..').
+It contains all the required Windows paths in Windows-style format (as 'C:\..').
 
-The entrypoint of the Docker Image is set to be the `wine64-entrypoint` bash script that loads a 64bit Windows CMD console that waits for commands.
+The entrypoint of the Docker Image is set to be a `wine64-entrypoint` bash script that loads the 64bit Windows CMD console that waits for commands.
 
 To start the image and execute a prepared Windows command or script, you **have to** call it with double-double quotes as follows:
 ```
@@ -65,6 +67,10 @@ C:>cmake --version
 ```
 
 ## Caveats
+
+### Encoding
+
+There are small issues when dealing with Windows-1252 encoding, that are unfortunately wine issues. For example, it has been observed that file names with bad encoding cannot be handled in the Windows CMD.
 
 ### Visual C++ 
 
