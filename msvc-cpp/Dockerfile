@@ -1,4 +1,4 @@
-FROM docker-wine:5-stable
+FROM madduci/docker-wine:5-stable
 
 LABEL maintainer="Michele Adduci <adduci@tutanota.com>"
 
