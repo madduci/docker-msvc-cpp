@@ -3,7 +3,7 @@
 cat > /home/wine/.wine/drive_c/entrypoint.bat <<EOL
 @echo off
 
-x64.bat && %*
+C:/x64.bat && %*
 
 EOL
 
