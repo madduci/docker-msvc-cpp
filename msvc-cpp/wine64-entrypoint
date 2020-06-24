@@ -3,11 +3,11 @@
 cat > /home/wine/.wine/drive_c/entrypoint.bat <<EOL
 @echo off
 
-C:/x64.bat && %*
+C:\\x64.bat && %*
 
 EOL
 
-wine64 cmd /k C:/entrypoint.bat "$@"
+wine64 cmd /k C:\\entrypoint.bat "$@"
 
 rm -f /home/wine/.wine/drive_c/entrypoint.bat
 exit 0
