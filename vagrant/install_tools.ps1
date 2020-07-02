@@ -29,8 +29,8 @@ $cmake_zip_output_path = "$packages_directory\CMake"
 ####################################
 # Define Conan information
 ####################################
-$conan_version = "1.26.1"
-$conan_version_classifier = "win-64_1_26_1"
+$conan_version = "1.27.0"
+$conan_version_classifier = "win-64_1_27_0"
 $conan_installer_url = "https://github.com/conan-io/conan/releases/download/$conan_version/conan-$conan_version_classifier.exe"
 $conan_installer_exe = "$working_directory\conan.exe"
 $conan_install_path = "C:\Program Files\Conan"
