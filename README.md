@@ -3,7 +3,7 @@
 This is a reproducible Linux-based Dockerfile for cross compiling with MSVC compiler, Conan, CMake, Ninja and Wix Toolset, usable as base image for Continuous Integration setups.
 
 This requires a zipped package of a real MSVC installation from Windows
-(currently only supporting MSVC 2019, tested until latest 16.6), which isn't freely redistributable, so you have to build it on your own.
+(currently only supporting MSVC 2019, tested until latest 16.7.7), which isn't freely redistributable, so you have to build it on your own.
 
 The MSVC installation can be performed using a Vagrant box and executing the installation of MSVC Community Edition: a Vagrantfile and a Powershell script to prepare the require packages are included in this repository.
 
@@ -11,7 +11,7 @@ The MSVC installation can be performed using a Vagrant box and executing the ins
 
 ### Hardware 
 
-* Dual-Core CPU, with VT-x/AMD-v
+* Dual-Core CPU, with VT-x/AMD-v enabled
 * 8 GByte RAM (16 GByte recommended)
 * Enough Disk Space for Vagrant and Docker images (50 GByte free recommended)
 * Fast internet connection
@@ -19,6 +19,7 @@ The MSVC installation can be performed using a Vagrant box and executing the ins
 ### Software
 
 * Virtualbox (6.x)
+* Vagrant (2.x)
 * Docker Engine 18.06+
 * Docker-Compose 1.20+
 
@@ -52,15 +53,15 @@ The entrypoint of the Docker Image is set to be a `wine64-entrypoint` bash scrip
 
 To start the image and execute a prepared Windows command or script, you **have to** call it with double-double quotes as follows:
 ```
-docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.6-2019 ""YOUR_SCRIPT_IN_TARGET_PATH""
+docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.7-2019 ""YOUR_SCRIPT_IN_TARGET_PATH""
 
-docker run --rm -it docker-wine-msvc:16.6-2019 ""conan install openssl/1.1.1g@""
+docker run --rm -it docker-wine-msvc:16.7-2019 ""conan install openssl/1.1.1h@""
 ```
 
 alternatively, to issue interactive commands:
 
 ```
-docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-msvc-extended:16.6-2019
+docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.7-2019
 C:>cl /?
 C:>conan --version
 C:>cmake --version
