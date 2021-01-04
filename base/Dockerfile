@@ -5,7 +5,7 @@ LABEL maintainer="Michele Adduci <adduci@tutanota.com>"
 ENV  WINEARCH=win64 \
     WINEDEBUG=-all,err \ 
     DISPLAY=:0.0 \
-    WINETRICKS_VERSION=20200412
+    WINETRICKS_VERSION=20201206
 
 RUN export DEBIAN_FRONTEND="noninteractive" \
     && echo "Configuring Ubuntu with equired tools for Wine" \

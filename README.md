@@ -3,7 +3,7 @@
 This is a reproducible Linux-based Dockerfile for cross compiling with MSVC compiler, Conan, CMake, Ninja and Wix Toolset, usable as base image for Continuous Integration setups.
 
 This requires a zipped package of a real MSVC installation from Windows
-(currently only supporting MSVC 2019, tested until latest 16.8.2), which isn't freely redistributable, so you have to build it on your own.
+(currently only supporting MSVC 2019, tested until latest 16.8.3), which isn't freely redistributable, so you have to build it on your own.
 
 The MSVC installation can be performed using a Vagrant box and executing the installation of MSVC Community Edition: a Vagrantfile and a Powershell script to prepare the require packages are included in this repository.
 

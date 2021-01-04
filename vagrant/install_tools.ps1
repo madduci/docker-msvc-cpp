@@ -19,7 +19,7 @@ $packages_directory = "C:\Packages"
 ####################################
 # Define CMake information
 ####################################
-$cmake_version = "3.19.0"
+$cmake_version = "3.19.2"
 $cmake_platform = "win64-x64"
 $cmake_installer_url = "https://github.com/Kitware/CMake/releases/download/v$cmake_version/cmake-$cmake_version-$cmake_platform.msi"
 $cmake_installer_msi = "$working_directory\cmake.msi"
@@ -29,8 +29,8 @@ $cmake_zip_output_path = "$packages_directory\CMake"
 ####################################
 # Define Conan information
 ####################################
-$conan_version = "1.31.3"
-$conan_version_classifier = "win-64_1_31_3"
+$conan_version = "1.32.1"
+$conan_version_classifier = "win-64_1_32_1"
 $conan_installer_url = "https://github.com/conan-io/conan/releases/download/$conan_version/conan-$conan_version_classifier.exe"
 $conan_installer_exe = "$working_directory\conan.exe"
 $conan_install_path = "C:\Program Files\Conan"
@@ -48,7 +48,7 @@ $wix_zip_output_path = "$packages_directory\WIX.zip"
 ####################################
 # Define Ninja information
 ####################################
-$ninja_version = "1.10.1"
+$ninja_version = "1.10.2"
 $ninja_binaries_url = "https://github.com/ninja-build/ninja/releases/download/v$ninja_version/ninja-win.zip"
 $ninja_binaries = "$working_directory\ninja.zip"
 $ninja_install_path = "C:\Program Files\Ninja"
