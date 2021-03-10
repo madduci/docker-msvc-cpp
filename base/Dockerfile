@@ -5,7 +5,7 @@ LABEL maintainer="Michele Adduci <adduci@tutanota.com>"
 ENV  WINEARCH=win64 \
     WINEDEBUG=-all,err \ 
     DISPLAY=:0.0 \
-    WINETRICKS_VERSION=20201206
+    WINETRICKS_VERSION=20210206
 
 RUN export DEBIAN_FRONTEND="noninteractive" \
     && echo "Configuring Ubuntu with equired tools for Wine" \
@@ -52,7 +52,7 @@ RUN echo "Initializing the wine environment for the current user" \
     && while pgrep wineserver > /dev/null; do sleep 1; done \
     && winetricks --unattended win10 \
     && echo "Installing .Net 4.8" \
-    && winetricks --unattended dotnet48 \
+    && winetricks --unattended --force dotnet48 \
     && echo "Deleting cache files" \
     && rm -rf /home/wine/.cache/*
 

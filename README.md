@@ -3,7 +3,7 @@
 This is a reproducible Linux-based Dockerfile for cross compiling with MSVC compiler, Conan, CMake, Ninja and Wix Toolset, usable as base image for Continuous Integration setups.
 
 This requires a zipped package of a real MSVC installation from Windows
-(currently only supporting MSVC 2019, tested until latest 16.8.3), which isn't freely redistributable, so you have to build it on your own.
+(currently only supporting MSVC 2019, tested until latest 16.9.1), which isn't freely redistributable, so you have to build it on your own.
 
 The MSVC installation can be performed using a Vagrant box and executing the installation of MSVC Community Edition: a Vagrantfile and a Powershell script to prepare the require packages are included in this repository.
 
@@ -38,7 +38,7 @@ The first script will start a Vagrant/Virtualbox Virtual Machine with Windows 10
 
 The second script will launch in background a python server on port 20000, self-hosting the ZIP archives and then build 2 docker images:
 
-* **docker-wine**, with only wine-stable (5.0 at time of writing), .NET 4.8 and initialized as Windows 10
+* **docker-wine**, with only wine-stable (6.0 at time of writing), .NET 4.8 and initialized as Windows 10
 * **docker-wine-msvc**, with the required Visual C++ tools and libraries (cl, link, nmake, rc), the latest Windows 10 SDK, CMake, Conan, Ninja and Wix.
 
 ## Usage
@@ -53,15 +53,15 @@ The entrypoint of the Docker Image is set to be a `wine64-entrypoint` bash scrip
 
 To start the image and execute a prepared Windows command or script, you **have to** call it with double-double quotes as follows:
 ```
-docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.8-2019 ""YOUR_SCRIPT_IN_TARGET_PATH""
+docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.9-2019 ""YOUR_SCRIPT_IN_TARGET_PATH""
 
-docker run --rm -it docker-wine-msvc:16.8-2019 ""conan install openssl/1.1.1h@""
+docker run --rm -it docker-wine-msvc:16.9-2019 ""conan install openssl/1.1.1j@""
 ```
 
 alternatively, to issue interactive commands:
 
 ```
-docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.8-2019
+docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.9-2019
 C:>cl /?
 C:>conan --version
 C:>cmake --version
