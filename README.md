@@ -53,7 +53,7 @@ The entrypoint of the Docker Image is set to be a `wine64-entrypoint` bash scrip
 
 To start the image and execute a prepared Windows command or script, you **have to** call it with double-double quotes as follows:
 ```
-docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.9-2019 ""YOUR_SCRIPT_IN_TARGET_PATH""
+docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.10-2019 ""YOUR_SCRIPT_IN_TARGET_PATH""
 
 docker run --rm -it docker-wine-msvc:16.9-2019 ""conan install openssl/1.1.1j@""
 ```
@@ -61,7 +61,7 @@ docker run --rm -it docker-wine-msvc:16.9-2019 ""conan install openssl/1.1.1j@""
 alternatively, to issue interactive commands:
 
 ```
-docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.9-2019
+docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.10-2019
 C:>cl /?
 C:>conan --version
 C:>cmake --version
