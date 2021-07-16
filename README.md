@@ -55,7 +55,7 @@ To start the image and execute a prepared Windows command or script, you **have 
 ```
 docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH docker-wine-msvc:16.10-2019 ""YOUR_SCRIPT_IN_TARGET_PATH""
 
-docker run --rm -it docker-wine-msvc:16.9-2019 ""conan install openssl/1.1.1k@""
+docker run --rm -it docker-wine-msvc:16.10-2019 ""conan install openssl/1.1.1k@""
 ```
 
 alternatively, to issue interactive commands:
