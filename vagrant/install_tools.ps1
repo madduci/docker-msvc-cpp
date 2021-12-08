@@ -19,7 +19,7 @@ $packages_directory = "C:\Packages"
 ####################################
 # Define CMake information
 ####################################
-$cmake_version = "3.21.2"
+$cmake_version = "3.22.1"
 $cmake_platform = "windows-x86_64"
 $cmake_installer_url = "https://github.com/Kitware/CMake/releases/download/v$cmake_version/cmake-$cmake_version-$cmake_platform.msi"
 $cmake_installer_msi = "$working_directory\cmake.msi"
@@ -29,7 +29,7 @@ $cmake_zip_output_path = "$packages_directory\CMake"
 ####################################
 # Define Conan information
 ####################################
-$conan_version = "1.40.0"
+$conan_version = "1.43.0"
 $conan_version_classifier = "win-64"
 $conan_installer_url = "https://github.com/conan-io/conan/releases/download/$conan_version/conan-$conan_version_classifier.exe"
 $conan_installer_exe = "$working_directory\conan.exe"
