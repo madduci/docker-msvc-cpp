@@ -23,6 +23,11 @@ The MSVC installation can be performed using a Vagrant box and executing the ins
 * Docker Engine 18.06+
 * Docker-Compose 1.20+
 
+#### Vagrant Plugins
+
+* winrm 
+* winrm-elevated
+
 ## Build
 
 To build the docker image, you need to run the following commands:
