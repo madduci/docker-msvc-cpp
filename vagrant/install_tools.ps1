@@ -68,7 +68,7 @@ $vs_installer_exe = "$working_directory\vs_community.exe"
 $vs_install_path = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community"
 # Defining SDK version
 $windows_sdk_version_major = "10"
-$windows_sdk_version_minor = "18362"
+$windows_sdk_version_minor = "19041"
 # Defining where Windows SDK is installed
 $windows_sdk_path = "C:\Program Files (x86)\Windows Kits\$windows_sdk_version_major"
 
