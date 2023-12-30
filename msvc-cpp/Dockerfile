@@ -51,10 +51,16 @@ RUN echo "Extracting Visual C++ compiler" \
     && curl -L http://172.17.0.1:20000/WIX.zip -o WIX.zip \
     && unzip -d Tools/Wix -q WIX.zip; \
     rm -rf WIX.zip \
+    && echo "Extracting Git" \
+    && curl -L https://github.com/git-for-windows/git/releases/download/v2.43.0.windows.1/MinGit-2.43.0-busybox-64-bit.zip -o Git.zip \
+    && unzip -d Tools/Git -q Git.zip; \
+    rm -rf Git.zip \
     && echo "Fix Permissions" \
     && chmod +x /usr/local/bin/wine64-entrypoint \
     && chown -R wine:root ./Tools Tools/VS2019 Tools/SDK || echo "Done" \
     && chmod -R 775 ./Tools Tools/VS2019 Tools/SDK || echo "Done" ;
+
+RUN sed -i 's/manager/store/g' /home/wine/.wine/drive_c/Tools/Git/etc/gitconfig
     
 USER wine
 
