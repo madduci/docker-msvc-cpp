@@ -18,9 +18,9 @@ The MSVC installation can be performed using a Vagrant box and executing the ins
 
 ### Software
 
-* Virtualbox (6.x)
+* Virtualbox (7.x)
 * Vagrant (2.x)
-* Docker Engine 18.06+
+* Docker Engine 20+
 * Docker-Compose 1.20+
 
 #### Vagrant Plugins
@@ -35,7 +35,7 @@ To build the docker image, you need to run the following commands:
 ```
 # starts the Vagrant box, installs MSVC and the other tools and prepares the zip packages
 ./download-tools.sh
-# Builds the docker images (the Ubuntu 20.04 image with wine and the one including also the tools)
+# Builds the docker images (the Ubuntu 22.04 image with wine and the one including also the tools)
 ./build-docker-images.sh
 ```
 
@@ -43,7 +43,7 @@ The first script will start a Vagrant/Virtualbox Virtual Machine with Windows 10
 
 The second script will launch in background a python server on port 20000, self-hosting the ZIP archives and then build 2 docker images:
 
-* **docker-wine**, with only wine-stable (6.0 at time of writing), .NET 4.8 and initialized as Windows 10
+* **docker-wine**, with only wine-stable (9.0 at time of writing), .NET 4.8 and initialized as Windows 10
 * **docker-wine-msvc**, with the required Visual C++ tools and libraries (cl, link, nmake, rc), the latest Windows 10 SDK, CMake, Conan, Ninja and Wix.
 
 ## Usage
@@ -58,15 +58,15 @@ The entrypoint of the Docker Image is set to be a `wine64-entrypoint` bash scrip
 
 To start the image and execute a prepared Windows command or script, you **have to** call it with double-double quotes as follows:
 ```
-docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH madduci/docker-wine-msvc:16.11-2019 ""YOUR_SCRIPT_IN_TARGET_PATH""
+docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH madduci/docker-wine-msvc:17.8-2022 ""YOUR_SCRIPT_IN_TARGET_PATH""
 
-docker run --rm -it madduci/docker-wine-msvc:16.11-2019 ""conan install openssl/1.1.1k@""
+docker run --rm -it madduci/docker-wine-msvc:17.8-2022 ""conan install openssl/3.2.0@""
 ```
 
 alternatively, to issue interactive commands:
 
 ```
-docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH madduci/docker-wine-msvc:16.11-2019
+docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH madduci/docker-wine-msvc:17.8-2022
 C:>cl /?
 C:>conan --version
 C:>cmake --version
@@ -84,7 +84,7 @@ It has been noticed that on some code, the 32 Bit compiler triggers internal com
 
 ### CMake
 
-The *Visual Studio* CMake generator doesn't work, due to issues with MSBuild 16.0 and wine. CMake can be used only with *NMake Makefiles* or, if you prefer, with *Ninja*, already included in the image. See the `test` project contained in this repository.
+The *Visual Studio* CMake generator doesn't work, due to issues with MSBuild and wine. CMake can be used only with *NMake Makefiles* or, if you prefer, with *Ninja*, already included in the image. See the `test` project contained in this repository.
 
 In order to work under Wine/CMD, CMake requires the environment variable **MSVC_REDIST_DIR** and that must be transformed in Unix Path format. 
 

@@ -19,7 +19,7 @@ $packages_directory = "C:\Packages"
 ####################################
 # Define CMake information
 ####################################
-$cmake_version = "3.27.7"
+$cmake_version = "3.28.1"
 $cmake_platform = "windows-x86_64"
 $cmake_installer_url = "https://github.com/Kitware/CMake/releases/download/v$cmake_version/cmake-$cmake_version-$cmake_platform.msi"
 $cmake_installer_msi = "$working_directory\cmake.msi"
@@ -29,7 +29,7 @@ $cmake_zip_output_path = "$packages_directory\CMake"
 ####################################
 # Define Conan information
 ####################################
-$conan_version = "2.0.13"
+$conan_version = "2.0.17"
 $conan_version_classifier = "win-64"
 $conan_installer_url = "https://github.com/conan-io/conan/releases/download/$conan_version/conan-$conan_version_classifier.exe"
 $conan_installer_exe = "$working_directory\conan.exe"
@@ -59,16 +59,16 @@ $ninja_zip_output_path = "$packages_directory\Ninja.zip"
 ####################################
 
 # Checkout Visual Studio Components
-# https://docs.microsoft.com/en-us/visualstudio/install/workload-component-id-vs-build-tools?vs-2019&view=vs-2019
+# https://learn.microsoft.com/en-us/visualstudio/install/workload-component-id-vs-build-tools?view=vs-2022
 
-# VS2019 Community Edition
-$vs_installer_url = "https://download.visualstudio.microsoft.com/download/pr/7b196ac4-65a9-4fde-b720-09b5339dbaba/78df39539625fa4e6c781c6a2aca7b4f/vs_community.exe"
+# VS2022 Community Edition
+$vs_installer_url = "https://c2rsetup.officeapps.live.com/c2r/downloadVS.aspx?sku=community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030"
 $vs_installer_exe = "$working_directory\vs_community.exe"
 # Defining where Visual Studio 2019 is installed
 $vs_install_path = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community"
 # Defining SDK version
 $windows_sdk_version_major = "10"
-$windows_sdk_version_minor = "19041"
+$windows_sdk_version_minor = "20348"
 # Defining where Windows SDK is installed
 $windows_sdk_path = "C:\Program Files (x86)\Windows Kits\$windows_sdk_version_major"
 
@@ -82,23 +82,23 @@ $module_sdk = "Microsoft.VisualStudio.Component.Windows10SDK.$windows_sdk_versio
 # Wait until the completion of the installer, do not restart the machine, don't show UI
 $vs_silent_args = "--quiet --wait --norestart"
 # Defining output path for archiving Visual C/C++ and Windows SDK
-$vs_zip_output_path = "$packages_directory\VC2019"
+$vs_zip_output_path = "$packages_directory\VC2022"
 $sdk_zip_output_path = "$packages_directory\SDK"
 
 ####################################
 # Prepare Visual Studio Package
 ####################################
 
-Write-Host "Downloading Visual Studio 2019 Community Edition"
+Write-Host "Downloading Visual Studio 2022 Community Edition"
 Invoke-WebRequest -Uri "$vs_installer_url" -OutFile "$vs_installer_exe"
 
 Write-Host "Installing C++ Development Environment"
-Start-Process -FilePath "$vs_installer_exe" -Wait -ArgumentList "$vs_silent_args  --add $module_vcredist --add $module_core_build --add $module_sdk --add $module_atlfmfc --add $module_atl --add $module_compilerx86";
+Start-Process -FilePath "$vs_installer_exe" -Wait -ArgumentList "$vs_silent_args --add $module_vcredist --add $module_core_build --add $module_sdk --add $module_atlfmfc --add $module_atl --add $module_compilerx86";
 
 # Define the folders to exclude from final archive
 $DirsToInclude=@("$vs_install_path\Common7\Tools", "$vs_install_path\VC")
 
-Write-Host "Compressing Visual Studio 2019 files in an archive"
+Write-Host "Compressing Visual Studio 2022 files in an archive"
 Compress-Archive -DestinationPath $vs_zip_output_path $DirsToInclude
 
 Write-Host "Compressing Windows $windows_sdk_version_major-$windows_sdk_version_minor SDK files in an archive"
@@ -174,6 +174,7 @@ Copy-Item $ninja_binaries -Destination "$ninja_zip_output_path"
 
 Write-Host "Removing downloaded installers/packages"
 Remove-Item -Path "$wix_binaries" -Force
+Remove-Item -Path "$ninja_binaries" -Force
 Remove-Item -Path "$cmake_installer_msi" -Force
 Remove-Item -Path "$conan_installer_exe" -Force
 Remove-Item -Path "$vs_installer_exe" -Force

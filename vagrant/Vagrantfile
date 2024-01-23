@@ -3,7 +3,7 @@
 
 Vagrant.configure("2") do |config|
   
-  config.vm.box = "StefanScherer/windows_10"
+  config.vm.box = "gusztavvargadr/windows-10"
   # Share an additional folder to the guest VM.
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder "packages/", "C:\\Packages"
