@@ -4,7 +4,7 @@
 docker-compose up -d
 
 # Re-Build base Docker Wine image
-docker build  --no-cache  -t madduci/docker-wine:7-stable -f base/Dockerfile base/
+docker build  --no-cache  -t madduci/docker-wine:9-stable -f base/Dockerfile base/
 
 # Build extended Docker Image (with CMake, Wix and Conan)
 docker build --no-cache -t madduci/docker-wine-msvc:16.11-2019 -f msvc-cpp/Dockerfile msvc-cpp/
