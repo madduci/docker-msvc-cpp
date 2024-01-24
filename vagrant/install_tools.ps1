@@ -65,7 +65,7 @@ $ninja_zip_output_path = "$packages_directory\Ninja.zip"
 $vs_installer_url = "https://c2rsetup.officeapps.live.com/c2r/downloadVS.aspx?sku=community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030"
 $vs_installer_exe = "$working_directory\vs_community.exe"
 # Defining where Visual Studio 2019 is installed
-$vs_install_path = "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community"
+$vs_install_path = "C:\Program Files\Microsoft Visual Studio\2022\Community"
 # Defining SDK version
 $windows_sdk_version_major = "10"
 $windows_sdk_version_minor = "20348"

@@ -1,4 +1,3 @@
-README
-vagrant/
-*.sh
-docker-compose.yml
+*
+!vagrant/packages/*.zip
+!msvc-cpp/
