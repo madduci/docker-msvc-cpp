@@ -3,7 +3,7 @@
 This is a reproducible Linux-based Dockerfile for cross compiling with MSVC compiler, Conan, CMake, Ninja and Wix Toolset, usable as base image for Continuous Integration setups.
 
 This requires a zipped package of a real MSVC installation from Windows
-(currently only supporting MSVC 2019, tested until latest 16.11.2), which isn't freely redistributable, so you have to build it on your own.
+(currently only supporting MSVC 2022, tested until latest 17.8.5), which isn't freely redistributable, so you have to build it on your own.
 
 The MSVC installation can be performed using a Vagrant box and executing the installation of MSVC Community Edition: a Vagrantfile and a Powershell script to prepare the require packages are included in this repository.
 
@@ -21,7 +21,6 @@ The MSVC installation can be performed using a Vagrant box and executing the ins
 * Virtualbox (7.x)
 * Vagrant (2.x)
 * Docker Engine 20+
-* Docker-Compose 1.20+
 
 #### Vagrant Plugins
 
@@ -60,7 +59,7 @@ To start the image and execute a prepared Windows command or script, you **have 
 ```
 docker run --rm -it -v HOST_PATH_TO_MOUNT:TARGET_PATH madduci/docker-wine-msvc:17.8-2022 ""YOUR_SCRIPT_IN_TARGET_PATH""
 
-docker run --rm -it madduci/docker-wine-msvc:17.8-2022 ""conan install openssl/3.2.0@""
+docker run --rm -it madduci/docker-wine-msvc:17.8-2022 ""conan install --requires=openssl/3.2.0""
 ```
 
 alternatively, to issue interactive commands:
