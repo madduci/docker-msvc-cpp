@@ -56,7 +56,7 @@ RUN echo "Fix Permissions" \
     && chown -R wine:root ./Tools Tools/VS2022 Tools/SDK || echo "Done" \
     && chmod -R 775 ./Tools Tools/VS2022 Tools/SDK || echo "Done" ;
 
-#RUN sed -i 's/manager/store/g' /home/wine/.wine/drive_c/Tools/Git/etc/gitconfig
+RUN sed -i 's/manager/store/g' /home/wine/.wine/drive_c/Tools/Git/etc/gitconfig
     
 USER wine
 
