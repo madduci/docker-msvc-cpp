@@ -94,18 +94,9 @@ string(REPLACE  "\\" "/" MSVC_REDIST_DIR "${MSVC_REDIST_DIR}")
 
 ### Conan 
 
-Conan by default tries to use Visual Studio as generator when used with CMake. 
-You have two options: set the environment variable **CONAN_CMAKE_GENERATOR** to "NMake Makefiles" ([see here](https://github.com/conan-io/conan/issues/2388)) or you can run the build step by invoking CMake as follows in your `conanfile.py`:
+Conan v2 by default tries to use Visual Studio as generator when used with CMake, but you can override it by using the extra configuration parameter `-c tools.cmake.cmaketoolchain:generator=Ninja`.
 
-```
-def build(self):
-        self.run('cmake -g "{generator}" -DCMAKE_BUILD_TYPE={build_type} {source}'.format(generator="NMake MakeFiles", build_type="Release", source=self.source_folder))
-        self.run('cmake --build . ')
-        # Builds the installer, if you have set CPACK and WIX in CMake
-        self.run('cmake --build . --target package')
-```
-
-The extended image comes also with Ninja, so you can speed up your builds by setting "Ninja" as generator, instead of "NMake MakeFiles". This is the default choice, as **CONAN_CMAKE_GENERATOR** is set to "Ninja" in the x64.bat script.
+The extended image comes also with Ninja, so you can speed up your builds by setting "Ninja" as generator, instead of "NMake MakeFiles". This is the default choice, as the default profile is configured with the CMake Generator set to "Ninja" in the x64.bat script.
 
 ### WIX Toolset
 
