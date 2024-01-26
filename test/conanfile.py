@@ -1,4 +1,6 @@
-from conans import ConanFile, tools, CMake
+from conan import ConanFile
+from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
+from conan.tools.files import copy
 from conans.errors import NotFoundException
 import os
 
@@ -8,23 +10,28 @@ class WineTestConan(ConanFile):
     description = "Test for Wine"
     # topics can get used for searches, GitHub topics, Bintray tags etc. Add here keywords about the library
     topics = ("wine", "test", "msvc")
-    url = ""
-    homepage = ""
+    url = "https://github.com/madduci/docker-msvc-cpp"
+    homepage = "https://github.com/madduci/docker-msvc-cpp"
     author = "Michele Adduci <adduci@tutanota.com>"
-    license = ""  # Indicates license type of the packaged library; please use SPDX Identifiers https://spdx.org/licenses/
+    license = "MIT" 
     exports_sources = ["CMakeLists.txt", "test.cpp"]
-    generators = "cmake"
     short_paths = True
     settings = "os", "arch", "compiler", "build_type"
     # Custom attributes for Bincrafters recipe conventions
     _source_subfolder = "source_subfolder"
     _build_subfolder = "build_subfolder"
 
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.variables["PROJECT_VERSION"] = self.version
+        tc.generate()
+        deps = CMakeDeps(self)
+        deps.generate()
+
     def build(self):
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
-        self.run('cmake --build . --target package')
 
     def package(self):
         # If the CMakeLists.txt has a proper install method, the steps below may be redundant

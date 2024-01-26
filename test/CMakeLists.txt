@@ -1,12 +1,9 @@
-cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.23 FATAL_ERROR)
 
 project(winetest CXX)
 set(PROJECT_VERSION 1.0.0)
 
 add_executable(${PROJECT_NAME} test.cpp)
-
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup(TARGETS)
 
 set_target_properties(${MODULE_NAME_TEST} PROPERTIES CXX_STANDARD 17)
 set_target_properties(${MODULE_NAME_TEST} PROPERTIES CXX_STANDARD_REQUIRED ON)

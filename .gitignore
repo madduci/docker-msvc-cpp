@@ -1,2 +1,4 @@
 vagrant/packages/*.zip
 vagrant/.vagrant
+test/CMakeUserPresets.json
+test/build

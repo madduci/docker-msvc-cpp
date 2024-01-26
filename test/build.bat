@@ -2,5 +2,16 @@
 
 setlocal
 cd /d %~dp0
-conan export . test/wine
-conan install winetest/1.0.0@test/wine --build
+md build
+cd build
+
+REM Perform Conan Setup
+conan export --name winetest ..
+conan install --name winetest --no-remote --output-folder . --build=missing ..
+
+REM Build with CMake
+cmake --preset conan-release ..
+cmake --build --preset conan-release
+
+REM Run the Application
+winetest.exe
