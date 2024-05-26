@@ -3,7 +3,7 @@ FROM madduci/docker-wine:9-stable as sources
 USER root
 
 COPY vagrant/packages/ /home/wine/
-ADD https://github.com/git-for-windows/git/releases/download/v2.43.0.windows.1/MinGit-2.43.0-busybox-64-bit.zip Git.zip
+ADD https://github.com/git-for-windows/git/releases/download/v2.45.1.windows.1/MinGit-2.45.1-busybox-64-bit.zip Git.zip
 
 RUN echo "Extracting Visual C++ compiler" \
     && mkdir -p Tools/VS2022 \
