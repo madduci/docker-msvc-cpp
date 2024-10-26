@@ -22,13 +22,12 @@ RUN export DEBIAN_FRONTEND="noninteractive" \
         binutils \
         winbind \
     && echo "Configuring WineHQ mirror" \
+    && mkdir -pm755 /etc/apt/keyrings \
     && dpkg --add-architecture i386 \
-    && curl -L https://dl.winehq.org/wine-builds/winehq.key -o /etc/apt/winehq.key \
-    && apt-key add /etc/apt/winehq.key \
-    && echo "deb https://dl.winehq.org/wine-builds/ubuntu/ focal main" >> /etc/apt/sources.list \
+    && curl -L https://dl.winehq.org/wine-builds/winehq.key -o /etc/apt/keyrings/winehq-archive.key \
+    && curl -L https://dl.winehq.org/wine-builds/ubuntu/dists/noble/winehq-noble.sources -o /etc/apt/sources.list.d/winehq.sources \
     && apt-get update \
-    && apt-get install -y --install-recommends \
-        winehq-stable \
+    && apt-get install -y --install-recommends wine-stable \
     && echo "Download winetricks" \
     && curl -L https://raw.githubusercontent.com/Winetricks/winetricks/${WINETRICKS_VERSION}/src/winetricks -o /usr/local/bin/winetricks \
     && chmod +rx /usr/local/bin/winetricks \
@@ -40,7 +39,7 @@ RUN export DEBIAN_FRONTEND="noninteractive" \
     && rm -rf /tmp/*  \
     && echo "Creating wine user" \
     && mkdir -p /home/wine \
-    && useradd --system -d /home/wine --shell /bin/bash --uid 1000 --gid root wine \
+    && useradd --system -d /home/wine --shell /bin/bash --uid 1001 --gid root wine \
     && chown -R wine /home/wine
 
 USER wine
