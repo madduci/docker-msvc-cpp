@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Re-Build base Docker Wine image
-docker build  --no-cache  -t madduci/docker-wine:9-stable -f base/Dockerfile base/
+docker build --no-cache -t madduci/docker-wine:9-stable -f base/Dockerfile base/ --push
 
 # Build extended Docker Image (with CMake, Wix and Conan)
-docker build --no-cache -t madduci/docker-wine-msvc:17.10-2022 -f msvc-cpp/Dockerfile .
+#docker build --no-cache -t madduci/docker-wine-msvc:17.10-2022 -f msvc-cpp/Dockerfile .

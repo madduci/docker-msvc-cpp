@@ -19,7 +19,7 @@ $packages_directory = "C:\Packages"
 ####################################
 # Define CMake information
 ####################################
-$cmake_version = "3.29.3"
+$cmake_version = "3.31.1"
 $cmake_platform = "windows-x86_64"
 $cmake_installer_url = "https://github.com/Kitware/CMake/releases/download/v$cmake_version/cmake-$cmake_version-$cmake_platform.msi"
 $cmake_installer_msi = "$working_directory\cmake.msi"
@@ -29,7 +29,7 @@ $cmake_zip_output_path = "$packages_directory\CMake"
 ####################################
 # Define Conan information
 ####################################
-$conan_version = "2.3.1"
+$conan_version = "2.9.3"
 $conan_version_classifier = "windows-x86_64"
 $conan_installer_url = "https://github.com/conan-io/conan/releases/download/$conan_version/conan-$conan_version_classifier-installer.exe"
 $conan_installer_exe = "$working_directory\conan.exe"
@@ -39,7 +39,7 @@ $conan_zip_output_path = "$packages_directory\Conan"
 ####################################
 # Define WIX information
 ####################################
-$wix_version = "314"
+$wix_version = "3141"
 $wix_binaries_url = "https://github.com/wixtoolset/wix3/releases/download/wix3141rtm/wix314-binaries.zip"
 $wix_binaries = "$working_directory\wix.zip"
 $wix_install_path = "C:\Program Files\WIX"
