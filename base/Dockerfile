@@ -4,8 +4,7 @@ LABEL maintainer="Michele Adduci <adduci@tutanota.com>"
 
 ENV WINEARCH=win64 \
     WINEDEBUG=-all,err \ 
-    DISPLAY=:0.0 \
-    WINETRICKS_VERSION=20240105
+    DISPLAY=:0.0
 
 RUN export DEBIAN_FRONTEND="noninteractive" \
     && echo "Configuring Ubuntu with equired tools for Wine" \
@@ -29,7 +28,7 @@ RUN export DEBIAN_FRONTEND="noninteractive" \
     && apt-get update \
     && apt-get install -y --install-recommends wine-stable \
     && echo "Download winetricks" \
-    && curl -L https://raw.githubusercontent.com/Winetricks/winetricks/${WINETRICKS_VERSION}/src/winetricks -o /usr/local/bin/winetricks \
+    && curl -L https://raw.githubusercontent.com/Winetricks/winetricks/refs/heads/master/src/winetricks -o /usr/local/bin/winetricks \
     && chmod +rx /usr/local/bin/winetricks \
     && echo "Cleaning system" \
     && apt-get autoclean \
@@ -46,13 +45,13 @@ USER wine
 
 WORKDIR /home/wine
 
-RUN echo "Initializing the wine environment for the current user" \
-    && wine wineboot --init \
+RUN echo "Initializing the wine environment for the current user" && \
+    wine wineboot --init \
     && while pgrep wineserver > /dev/null; do sleep 1; done \
     && winetricks --unattended win10 \
-    && echo "Installing .Net 4.8" \
+    && echo "Installing .NET 4.8" \
     && winetricks --unattended --force dotnet48 \
     && echo "Deleting cache files" \
-    && rm -rf /home/wine/.cache/*
+    && rm -rf /home/wine/.cache/* /tmp/*
 
 ENTRYPOINT [ "/bin/bash", "-c", "wine64 cmd" ]
