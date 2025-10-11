@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-LABEL maintainer="Michele Adduci <adduci@tutanota.com>"
+LABEL maintainer="Michele Adduci <michele@adduci.org>"
 
 ENV WINEARCH=win64 \
     WINEDEBUG=-all,err \ 
@@ -26,7 +26,7 @@ RUN export DEBIAN_FRONTEND="noninteractive" \
     && curl -L https://dl.winehq.org/wine-builds/winehq.key -o /etc/apt/keyrings/winehq-archive.key \
     && curl -L https://dl.winehq.org/wine-builds/ubuntu/dists/noble/winehq-noble.sources -o /etc/apt/sources.list.d/winehq.sources \
     && apt-get update \
-    && apt-get install -y --install-recommends wine-stable \
+    && apt-get install -y --install-recommends wine \
     && echo "Download winetricks" \
     && curl -L https://raw.githubusercontent.com/Winetricks/winetricks/refs/heads/master/src/winetricks -o /usr/local/bin/winetricks \
     && chmod +rx /usr/local/bin/winetricks \
